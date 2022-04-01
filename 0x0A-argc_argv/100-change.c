@@ -5,45 +5,51 @@
 #include <stdbool.h>
 
 /**
- * coinConverter - Helper function that does all the mathematics
- * @i: Passed in variable from main for calculations
- * Return: The number of coins needed minimum for the passed in variable
+ * change - Helper function that does all the mathematics
+ * @cents: Passed in variable from main for calculations
+ * Return: Change
  */
-int coinConverter(int i)
+int change(int cents)
 {
-	int count = 0;
+	int q = 25, d = 10, n = 5, t = 2, p = 1;
+	int coins;
 
-	while (i != 0)
+	while (cents > 0)
 	{
-		if (i % 10 == 9 || i % 10 == 7)
-			i -= 2;
-		else if (i % 25 == 0)
-			i -= 25;
-		else if (i % 10 == 0)
-			i -= 10;
-		else if (i % 5 == 0)
-			i -= 5;
-			else if (i % 2 == 0)
+		while (cents >= q)
 		{
-			if (i % 10 == 6)
-				i -= 1;
-			else
-				i -= 2;
+			cents -= q;
+			coins++;
 		}
-		else
-			i -= 1;
-
-		count++;
+		while (cents >= d)
+		{
+			cents -= d;
+			coins++;
+		}
+		while (cents >= n)
+		{
+			cents -= n;
+			coins++;
+		}
+		while (cents >= t)
+		{
+			cents -= t;
+			coins++;
+		}
+		while (cents >= p)
+		{
+			cents -=p;
+			coins++;
+		}
 	}
-
-	return (count);
+	return (coins);
 }
 
 /**
  * main - Takes in exactly one argument for minimum coin count
  * @argc: Number of command line arguments
  * @argv: Array name
- * Return: 0 if exactly 1 argument is passed into this program, 1 otherwise
+ * Return: 0 
  */
 int main(int argc, char *argv[])
 {
@@ -53,21 +59,14 @@ int main(int argc, char *argv[])
 
 	if (argc != 2)
 	{
-		printf("Error\n");
+		printf("%s\n", "Error");
 		return (1);
 	}
-
-	i = atoi(argv[1]);
-
-	if (i < 0)
-		printf("0\n");
-
-	else
+	else if (argc < 0)
 	{
-		coin = coinConverter(i);
-
-		printf("%d\n", coin);
+		return (0);
 	}
 
+	printf("%d\n", change(atoi(argv[1])));
 	return (0);
 }
