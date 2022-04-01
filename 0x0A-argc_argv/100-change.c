@@ -1,13 +1,33 @@
-#include "main.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <ctype.h>
-#include <stdbool.h>
+#include "main.h"
+int change(int cents);
+/**
+ * main - Entry Point
+ * @argc: arguments
+ * @argv: array pointing to arguments
+ * Return: 0
+ */
+int main(int argc, char *argv[])
+{
+	if (argc != 2)
+	{
+		printf("%s\n", "Error");
+		return (1);
+	}
+	else if (argc < 0)
+	{
+		return (0);
+	}
+
+	printf("%d\n", change(atoi(argv[1])));
+	return (0);
+}
 
 /**
- * change - Helper function that does all the mathematics
- * @cents: Passed in variable from main for calculations
- * Return: Change
+ * change - get change
+ * @cents: amount of coins from main function
+ * Return: change
  */
 int change(int cents)
 {
@@ -38,35 +58,9 @@ int change(int cents)
 		}
 		while (cents >= p)
 		{
-			cents -=p;
+			cents -= p;
 			coins++;
 		}
 	}
 	return (coins);
-}
-
-/**
- * main - Takes in exactly one argument for minimum coin count
- * @argc: Number of command line arguments
- * @argv: Array name
- * Return: 0 
- */
-int main(int argc, char *argv[])
-{
-	int i, coin;
-
-	coin = 0;
-
-	if (argc != 2)
-	{
-		printf("%s\n", "Error");
-		return (1);
-	}
-	else if (argc < 0)
-	{
-		return (0);
-	}
-
-	printf("%d\n", change(atoi(argv[1])));
-	return (0);
 }
